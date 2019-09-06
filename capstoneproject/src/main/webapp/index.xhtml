@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" />
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="Guardar" icon="ui-icon-disk" />
+
+						<p:commandButton value="Report1" icon="ui-icon-disk"
+							process="@this" 
+							update=":frm:men :frm:datReport1" />
+
+					</f:facet>
+				</p:toolbar>
+
+
+				<p:panelGrid id="panGridProduct" columns="2" style="width:100%">
+					<p:outputLabel value="Producto:" for="txtName" />
+					<p:inputText id="txtName" required="true" maxlength="45" />
+
+				</p:panelGrid>
+				<br></br>
+
+
+				<p:dataTable id="datTabProducts"
+					emptyMessage="No existen productos registrados"
+					value="#{productController.products}" var="product"
+					paginator="true" rows="10">
+
+					<p:column headerText="Id">
+						<p:outputLabel value="#{product.id}" />
+					</p:column>
+					<p:column headerText="Producto">
+						<p:outputLabel value="#{product.name}" />
+					</p:column>
+					<p:column headerText="Proveedor">
+						<p:outputLabel value="#{product.supplier}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable id="datReport1"
+					emptyMessage="No existen productos registrados"
+					value="#{productController.report1}" var="product" paginator="true"
+					rows="10">
+
+					<p:column headerText="Id">
+						<p:outputLabel value="#{product.key}" />
+					</p:column>
+					<p:column headerText="Producto">
+						<p:outputLabel value="#{product.value}" />
+					</p:column>
+
+				</p:dataTable>
+
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>
