@@ -13,12 +13,13 @@
 			<h:form id="frm">
 				<p:growl id="men" />
 
-				<p:toolbar>					<f:facet name="right">
+				<p:toolbar>
+					<f:facet name="right">
 						<p:commandButton value="Guardar" icon="ui-icon-disk" 
 						action="#{productController.saveProduct()}" ajax="false"/>
 
 						<p:commandButton value="Regresar" icon="ui-icon-disk"
-						  action="#{SupplierController.}"
+						  action="#{productController.listProduct()}"
 						  immediate="true"
 						  ajax="false"/>
 					</f:facet>
@@ -32,12 +33,12 @@
 					<p:outputLabel value="Proveedor" for="txtSupplier" />
 					<p:inputText id="txtSupplier" required="true" maxlength="45"
 						value="#{supplierController.supplier.NProveedor}" />
-					<p:outputLabel value="Categoria" for="txtCategory" />
-					<p:inputText id="txtCategory" required="true" maxlength="45"
-						value="#{productController.product.category}" />
+					<p:outputLabel value="numero" for="txtnumero" />
+					<p:inputText id="txtnumero" required="true" maxlength="45"
+						value="#{supplierController.supplier.numTelefono_Proveedor}" />
 					<p:outputLabel value="Precio Unitario" for="txtUnitPrice" />
 					<p:inputText id="txtUnitPrice" required="true" maxlength="45"
-						value="#{productController.product.unitPrice}" />
+						value="#{supplierController.supplier.TDireccion_Proveedor}" />
 					<p:outputLabel value="Stock" for="txtStock" />
 					<p:inputText id="txtStock" required="true" maxlength="45"
 						value="#{productController.product.unitsInStock}" />
@@ -52,4 +53,3 @@
 
 </body>
 </html>
-
