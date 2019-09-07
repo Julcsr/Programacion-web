@@ -13,10 +13,8 @@ public class Supplier {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long CProveedor;
-
 	@Column(name="NProveedor", nullable=false)
 	private char NProveedor;
-	
 	@Column(name="NumTelefono_Proveedor", nullable=false)
 	private char NumTelefono_Proveedor;
 	@Column(name="TDireccion_Proveedor", nullable=false)

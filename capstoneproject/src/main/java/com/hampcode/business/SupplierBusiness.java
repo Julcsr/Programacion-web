@@ -36,6 +36,7 @@ public class SupplierBusiness implements Serializable {
 	
 	public List<Supplier> getSuppliersByName(String name) throws Exception{
 		return supplierRepository.findByName(name);
+		//:v
 	}
 
 }
