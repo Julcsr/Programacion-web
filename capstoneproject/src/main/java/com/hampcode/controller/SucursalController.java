@@ -20,8 +20,8 @@ public class SucursalController implements Serializable {
 	@Inject
 	private SucursalBusiness sucursalBusiness;
 
-	private Sucursal sucursal; //NuevoSucursalo
-	private List<Sucursal> sucursals;//ListaSucursalos
+	private Sucursal sucursal; 
+	private List<Sucursal> sucursals;
 	private Sucursal sucursalSelect;//Sucursalo Seleccionado Editar
 	private String filterName;// Criterio de Busqueda
 
