@@ -5,51 +5,49 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Empleado")
+@Table(name="empleados")
 public class Empleado {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long idEmpleado;
-	@Column(name="nombreEmpleador", nullable=false)
-	String nombreEmpleado;
-	@Column(name="cargoEmpleado", nullable=false)
-	CargoEmpleado cargoEmpleado;
-	@Column(name="sucursal", nullable=false)
-	Sucursal sucursal;
-
-	public Long getIdEmpleado() {
-		return idEmpleado;
+	private Long id;
+	@Column(name="nombre_empleado", nullable=false, length=50)
+	private String nombre;
+	@ManyToOne
+	@JoinColumn(name="id_cargo")
+	private Cargo cargo;
+	@ManyToOne
+	@JoinColumn(name="id_sucursal")
+	private Sucursal sucursal;
+	public Long getId() {
+		return id;
 	}
-
-	public void setIdEmpleado(Long idEmpleado) {
-		this.idEmpleado = idEmpleado;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public String getNombreEmpleado() {
-		return nombreEmpleado;
+	public String getNombre() {
+		return nombre;
 	}
-
-	public void setNombreEmpleado(String nombreEmpleado) {
-		this.nombreEmpleado = nombreEmpleado;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-
-	public CargoEmpleado getCargo_empleado() {
-		return cargoEmpleado;
+	public Cargo getCargo() {
+		return cargo;
 	}
-
-	public void setCargo_empleado(CargoEmpleado cargo_empleado) {
-		this.cargoEmpleado = cargo_empleado;
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
-
 	public Sucursal getSucursal() {
 		return sucursal;
 	}
-
 	public void setSucursal(Sucursal sucursal) {
 		this.sucursal = sucursal;
 	}
+
+	
 
 }

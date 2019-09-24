@@ -8,17 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Proveedor")
+@Table(name="proveedor")
 public class Supplier {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long CProveedor;
-	@Column(name="NProveedor", nullable=false)
-	private char NProveedor;
-	@Column(name="NumTelefono_Proveedor", nullable=false)
-	private char NumTelefono_Proveedor;
-	@Column(name="TDireccion_Proveedor", nullable=false)
-	private char TDireccion_Proveedor;
+	@Column(name="nproveedor", nullable=false,length=50)
+	private String NProveedor;
+	@Column(name="numtelefono_proveedor", nullable=false,length=50)
+	private String NumTelefono_Proveedor;
+	@Column(name="tdireccion_proveedor", nullable=false,length=50)
+	private String TDireccion_Proveedor;
 	
 	
 	public Long getCProveedor() {
@@ -27,22 +27,22 @@ public class Supplier {
 	public void setCProveedor(Long cProveedor) {
 		CProveedor = cProveedor;
 	}
-	public char getNProveedor() {
+	public String getNProveedor() {
 		return NProveedor;
 	}
-	public void setNProveedor(char nProveedor) {
+	public void setNProveedor(String nProveedor) {
 		NProveedor = nProveedor;
 	}
-	public char getNumTelefono_Proveedor() {
+	public String getNumTelefono_Proveedor() {
 		return NumTelefono_Proveedor;
 	}
-	public void setNumTelefono_Proveedor(char numTelefono_Proveedor) {
+	public void setNumTelefono_Proveedor(String numTelefono_Proveedor) {
 		NumTelefono_Proveedor = numTelefono_Proveedor;
 	}
-	public char getTDireccion_Proveedor() {
+	public String getTDireccion_Proveedor() {
 		return TDireccion_Proveedor;
 	}
-	public void setTDireccion_Proveedor(char tDireccion_Proveedor) {
+	public void setTDireccion_Proveedor(String tDireccion_Proveedor) {
 		TDireccion_Proveedor = tDireccion_Proveedor;
 	}
 	

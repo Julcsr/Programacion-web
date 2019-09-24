@@ -8,28 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TipoPedido")
+@Table(name = "tipos_pedidos")
 public class TipoPedido {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long idTipoPedido;
-	@Column(name="nombreTipoPedido", nullable=false)
-	String nombreTipoPedido;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "nombre_tipos", nullable = false, length = 50)
+	private String nombre;
 
-	public Long getIdTipoPedido() {
-		return idTipoPedido;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdTipoPedido(Long idTipoPedido) {
-		this.idTipoPedido = idTipoPedido;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getNombreTipoPedido() {
-		return nombreTipoPedido;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombreTipoPedido(String nombreTipoPedido) {
-		this.nombreTipoPedido = nombreTipoPedido;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

@@ -8,32 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Marca")
+@Table(name="marcas")
 public class Marca {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long cMarca;
-	
-	@Column(name="NMarca", nullable=false, length=50)
-	private String nMarca;
+	Long idMarca;
+	@Column(name="nombre_marca", nullable=false, length=50)
+	String nombreMarca;
 
-	public Long getcMarca() {
-		return cMarca;
+	public Long getIdMarca() {
+		return idMarca;
 	}
 
-	public void setcMarca(Long cMarca) {
-		this.cMarca = cMarca;
+	public void setIdMarca(Long idMarca) {
+		this.idMarca = idMarca;
 	}
 
-	public String getnMarca() {
-		return nMarca;
+	public String getNombreMarca() {
+		return nombreMarca;
 	}
 
-	public void setnMarca(String nMarca) {
-		this.nMarca = nMarca;
+	public void setNombreMarca(String nombreMarca) {
+		this.nombreMarca = nombreMarca;
 	}
-	
-	
+
 }
-
-

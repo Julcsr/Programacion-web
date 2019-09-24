@@ -39,7 +39,7 @@ public class SupplierRepository implements Serializable{
 	public List<Supplier > findAll() throws Exception{
 		List<Supplier > suppliers=new ArrayList<>();
 		
-		TypedQuery<Supplier > query=em.createQuery("FROM Product p"
+		TypedQuery<Supplier > query=em.createQuery("FROM Supplier s"
 				,Supplier.class);
 		suppliers=query.getResultList();
 		
@@ -50,7 +50,7 @@ public class SupplierRepository implements Serializable{
 	public Optional<Supplier > findById(Long id) throws Exception{
 		Supplier supplierFound;
 		
-		TypedQuery<Supplier > query=em.createQuery("FROM Product p WHERE p.id=?1"
+		TypedQuery<Supplier > query=em.createQuery("FROM Supplier s WHERE s.cproveedor=?1"
 				,Supplier.class);
 		
 		query.setParameter(1, id);
@@ -63,7 +63,7 @@ public class SupplierRepository implements Serializable{
 	public List<Supplier> findByName(String name) throws Exception{
 		List<Supplier> suppliers=new ArrayList<>();
 		
-		TypedQuery<Supplier> query=em.createQuery("FROM Supplier s WHERE s.NProveedor LIKE ?1"
+		TypedQuery<Supplier> query=em.createQuery("FROM Supplier s WHERE s.nproveedor LIKE ?1"
 				,Supplier.class);
 		query.setParameter(1, "%"+name+"%");
 		suppliers=query.getResultList();

@@ -1,4 +1,5 @@
 package com.hampcode.model.entity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,32 +8,38 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Sucursal")
+@Table(name = "sucursales")
 public class Sucursal {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long CSucursal;
-	public Long getCSucursal() {
-		return CSucursal;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column(name = "numero_telefono", nullable = false)
+	private int numTelefono;
+	@Column(name = "direccion", nullable = false, length = 50)
+	private String direccion;
+
+	public Long getId() {
+		return id;
 	}
-	public void setCSucursal(Long cSucursal) {
-		CSucursal = cSucursal;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public char getNumTelefono_Sucursal() {
-		return NumTelefono_Sucursal;
+
+	public int getNumTelefono() {
+		return numTelefono;
 	}
-	public void setNumTelefono_Sucursal(char numTelefono_Sucursal) {
-		NumTelefono_Sucursal = numTelefono_Sucursal;
+
+	public void setNumTelefono(int numTelefono) {
+		this.numTelefono = numTelefono;
 	}
-	public char getTDireccion_Sucursal() {
-		return TDireccion_Sucursal;
+
+	public String getDireccion() {
+		return direccion;
 	}
-	public void setTDireccion_Sucursal(char tDireccion_Sucursal) {
-		TDireccion_Sucursal = tDireccion_Sucursal;
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
-	@Column(name="NumTelefono_Sucursal", nullable=false)
-	private char NumTelefono_Sucursal;
-	@Column(name="TDireccion_Sucursal", nullable=false)
-	private char TDireccion_Sucursal;
-	
+
 }

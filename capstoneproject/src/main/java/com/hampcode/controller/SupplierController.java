@@ -39,7 +39,7 @@ public class SupplierController implements Serializable {
 		try {
 			suppliers = supplierBusiness.getAll();
 		} catch (Exception e) {
-			Message.messageError("Error Carga de Supplieros :" + e.getMessage());
+			Message.messageError("Error Carga de Proveedores :" + e.getMessage());
 		}
 	}
 

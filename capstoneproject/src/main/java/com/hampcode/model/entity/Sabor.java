@@ -8,31 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Sabor")
+@Table(name = "sabores")
 public class Sabor {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long cSabor;
-	
-	@Column(name="NSabor", nullable=false, length=50)
-	private String nSabor;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long idSabor;
+	@Column(name = "nombre_sabor", nullable = false, length=50)
+	String nombreSabor;
 
-	public Long getcSabor() {
-		return cSabor;
+	public Long getIdSabor() {
+		return idSabor;
 	}
 
-	public void setcSabor(Long cSabor) {
-		this.cSabor = cSabor;
+	public void setIdSabor(Long idSabor) {
+		this.idSabor = idSabor;
 	}
 
-	public String getnSabor() {
-		return nSabor;
+	public String getNombreSabor() {
+		return nombreSabor;
 	}
 
-	public void setnSabor(String nSabor) {
-		this.nSabor = nSabor;
+	public void setNombreSabor(String nombreSabor) {
+		this.nombreSabor = nombreSabor;
 	}
-	
-	
-	
+
 }

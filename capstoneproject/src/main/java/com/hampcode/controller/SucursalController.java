@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 
@@ -13,47 +15,48 @@ import com.hampcode.business.SucursalBusiness;
 import com.hampcode.model.entity.Sucursal;
 import com.hampcode.util.Message;
 
+@Named
+@SessionScoped
 public class SucursalController implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private SucursalBusiness sucursalBusiness;
 
-	private Sucursal sucursal; 
-	private List<Sucursal> sucursals;
-	private Sucursal sucursalSelect;//Sucursalo Seleccionado Editar
-	private String filterName;// Criterio de Busqueda
+	private Sucursal sucursal;
+	private List<Sucursal> sucursales;
+	private Sucursal sucursalSelect;
 
 	@PostConstruct
 	public void init() {
 		sucursal = new Sucursal();
-		sucursals = new ArrayList<Sucursal>();
-		getAllSucursals();
+		sucursales = new ArrayList<Sucursal>();
+		sucursalSelect = new Sucursal();
+		getAllSucursales();
 	}
 
-	public void getAllSucursals() {
+	public void getAllSucursales() {
 		try {
-			sucursals = sucursalBusiness.getAll();
+			sucursales = sucursalBusiness.getAll();
 		} catch (Exception e) {
-			Message.messageError("Error Carga de Sucursalos :" + e.getMessage());
+			Message.messageError("Error Carga de sucursales:" + e.getMessage());
 		}
 	}
 
 	public String newSucursal() {
 		resetForm();
-		return "insert.xhtml";
+		return "insert_sucursal.xhtml";
 	}
 
 	public String listSucursal() {
-		return "list.xhtml";
+		return "list_sucursal.xhtml";
 	}
 
 	public String saveSucursal() {
 		String view = "";
 		try {
 
-			if (sucursal.getCSucursal()!=null) {
+			if (sucursal.getId() != null) {
 				sucursalBusiness.update(sucursal);
 				Message.messageInfo("Registro actualizado exitosamente");
 			} else {
@@ -61,11 +64,11 @@ public class SucursalController implements Serializable {
 				Message.messageInfo("Registro guardado exitosamente");
 
 			}
-			this.getAllSucursals();
+			this.getAllSucursales();
 			resetForm();
-			view = "list";
+			view = "list_sucursal";
 		} catch (Exception e) {
-			Message.messageError("Error Sucursal :" + e.getStackTrace());
+			Message.messageError("Error sucursal :" + e.getStackTrace());
 		}
 
 		return view;
@@ -77,30 +80,15 @@ public class SucursalController implements Serializable {
 			if (this.sucursalSelect != null) {
 				this.sucursal = sucursalSelect;
 
-				view = "update";// Vista
+				view = "update_sucursal";// Vista
 			} else {
-				Message.messageInfo("Debe seleccionar un proveedor");
+				Message.messageInfo("Debe seleccionar una sucursal");
 			}
 		} catch (Exception e) {
-			Message.messageError("Error Sucursal :" + e.getMessage());
+			Message.messageError("Error sucursal :" + e.getMessage());
 		}
 
 		return view;
-	}
-
-	public void searchSucursalByName() {
-		try {
-
-			sucursals = sucursalBusiness.getSucursalsByName(this.filterName.trim());
-			resetForm();
-			if (sucursals.isEmpty()) {
-				Message.messageInfo("No se encontraron sucursalos");
-
-			}
-
-		} catch (Exception e) {
-			Message.messageError("Error Sucursal Search :" + e.getMessage());
-		}
 	}
 
 	public void selectSucursal(SelectEvent e) {
@@ -108,8 +96,15 @@ public class SucursalController implements Serializable {
 	}
 
 	public void resetForm() {
-		this.filterName="";
 		this.sucursal = new Sucursal();
+	}
+
+	public SucursalBusiness getSucursalBusiness() {
+		return sucursalBusiness;
+	}
+
+	public void setSucursalBusiness(SucursalBusiness sucursalBusiness) {
+		this.sucursalBusiness = sucursalBusiness;
 	}
 
 	public Sucursal getSucursal() {
@@ -120,12 +115,12 @@ public class SucursalController implements Serializable {
 		this.sucursal = sucursal;
 	}
 
-	public List<Sucursal> getSucursals() {
-		return sucursals;
+	public List<Sucursal> getSucursales() {
+		return sucursales;
 	}
 
-	public void setSucursals(List<Sucursal> sucursals) {
-		this.sucursals = sucursals;
+	public void setSucursales(List<Sucursal> sucursales) {
+		this.sucursales = sucursales;
 	}
 
 	public Sucursal getSucursalSelect() {
@@ -134,18 +129,6 @@ public class SucursalController implements Serializable {
 
 	public void setSucursalSelect(Sucursal sucursalSelect) {
 		this.sucursalSelect = sucursalSelect;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public String getFilterName() {
-		return filterName;
-	}
-
-	public void setFilterName(String filterName) {
-		this.filterName = filterName;
 	}
 
 }

@@ -10,79 +10,82 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Insumo")
-
+@Table(name = "insumos")
 public class Insumo {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long cInsumo;
-
+	private Long idInsumo;
+	@Column(name = "nombre_insumo", nullable = false, length = 50)
+	private String nombreInsumo;
 	@ManyToOne
-	@JoinColumn(name="CSabor")
-	private Sabor sabor;
-
+	@JoinColumn(name = "id_unidad")
+	private Unidad unidadInsumo;
 	@ManyToOne
-	@JoinColumn(name="CMarca")
-	private Marca marca;
-
+	@JoinColumn(name = "id_marca")
+	private Marca marcaInsumo;
 	@ManyToOne
-	@JoinColumn(name="CUnidad")
-	private Unidad unidad;
-	
-	@Column(name = "NInsumo", nullable = false)
-	private String nInsumo;
+	@JoinColumn(name = "id_sabor")
+	private Sabor saborInsumo;
 
-	@Column(name = "QPorcion_Insumo", nullable = true)
-	private int cantidad_Porcion_Insumo;
+	private int porcion;
 
-	public Long getcInsumo() {
-		return cInsumo;
+	private int stock;
+
+	public int getStock() {
+		return stock;
 	}
 
-	public void setcInsumo(Long cInsumo) {
-		this.cInsumo = cInsumo;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
-	public Sabor getSabor() {
-		return sabor;
+	public Long getIdInsumo() {
+		return idInsumo;
 	}
 
-	public void setSabor(Sabor sabor) {
-		this.sabor = sabor;
+	public void setIdInsumo(Long idInsumo) {
+		this.idInsumo = idInsumo;
 	}
 
-	public Marca getMarca() {
-		return marca;
+	public String getNombreInsumo() {
+		return nombreInsumo;
 	}
 
-	public void setMarca(Marca marca) {
-		this.marca = marca;
+	public void setNombreInsumo(String nombreInsumo) {
+		this.nombreInsumo = nombreInsumo;
 	}
 
-	public Unidad getUnidad() {
-		return unidad;
+	public Unidad getUnidadInsumo() {
+		return unidadInsumo;
 	}
 
-	public void setUnidad(Unidad unidad) {
-		this.unidad = unidad;
+	public void setUnidadInsumo(Unidad unidadInsumo) {
+		this.unidadInsumo = unidadInsumo;
 	}
 
-	public String getnInsumo() {
-		return nInsumo;
+	public Marca getMarcaInsumo() {
+		return marcaInsumo;
 	}
 
-	public void setnInsumo(String nInsumo) {
-		this.nInsumo = nInsumo;
+	public void setMarcaInsumo(Marca marcaInsumo) {
+		this.marcaInsumo = marcaInsumo;
 	}
 
-	public int getCantidad_Porcion_Insumo() {
-		return cantidad_Porcion_Insumo;
+	public Sabor getSaborInsumo() {
+		return saborInsumo;
 	}
 
-	public void setCantidad_Porcion_Insumo(int cantidad_Porcion_Insumo) {
-		this.cantidad_Porcion_Insumo = cantidad_Porcion_Insumo;
+	public void setSaborInsumo(Sabor saborInsumo) {
+		this.saborInsumo = saborInsumo;
 	}
 
+	public int getPorcion() {
+		return porcion;
+	}
 
+	public void setPorcion(int porcion) {
+		this.porcion = porcion;
+	}
 
 }
