@@ -1,6 +1,5 @@
 package com.hampcode.controller;
 
-import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +18,6 @@ import com.hampcode.model.entity.Insumo;
 import com.hampcode.model.entity.OrdenCompra;
 import com.hampcode.model.entity.OrdenInsumo;
 import com.hampcode.util.Message;
-import com.itextpdf.text.DocumentException;
 
 @Named
 @SessionScoped
@@ -69,12 +67,7 @@ public class OrdenInsumoController implements Serializable {
 			Message.messageError("Error Carga de Ordenes :" + e.getMessage());
 		}
 	}
-	
-	public void generarSuperPdf(OrdenInsumo orden) throws FileNotFoundException, DocumentException{
-		PdfController pdf=new PdfController();
-		pdf.generarPdf(orden);
-	}
-	
+
 	public String newOrdenInsumo() {
 		try {
 			this.insumos = insumoBusiness.getAll();
@@ -105,7 +98,6 @@ public class OrdenInsumoController implements Serializable {
 				ordenInsumo.setInsumo(insumo);
 				ordenInsumo.setOrdenCompra(ordenCompra);
 				ordenInsumoBusiness.insert(ordenInsumo);
-				//generarSuperPdf(ordenInsumo);
 				insumo.setStock(insumo.getStock()+ordenInsumo.getCantidad());
 				insumoBusiness.update(insumo);
 				Message.messageInfo("Registro guardado exitosamente");

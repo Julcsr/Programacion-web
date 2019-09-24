@@ -134,7 +134,7 @@ public class InsumoController implements Serializable {
 				insumo.setSaborInsumo(sabor);
 				insumo.setUnidadInsumo(unidad);
 				insumoBusiness.insert(insumo);
-				//enviarCorreo(insumo);
+				enviarCorreo(insumo);
 				Message.messageInfo("Registro guardado exitosamente");
 
 			}
