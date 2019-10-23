@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="fragments/head"></th:block>
+<body>
+
+	<th:block th:include="fragments/navbar"></th:block>
+	<div class="container">
+
+		<div class="card" style="max-width: 100%;">
+			<div class="card-header">Actualizar Empleado</div>
+			<div class="card-body">
+
+				<form th:object="${employee}"  th:action="@{/employees/save}" 
+					th:method="post">
+					<div class="form-group">
+						<input type="hidden" class="form-control" th:field="*{id}" />
+					</div>
+			
+					<div class="form-group">
+						<label for="name">Nombre</label> <input type="text"
+							class="form-control" id="name" aria-describedby="name"
+							th:field="*{name}" placeholder="type here ..." />
+					</div>
+							
+					<div class="form-group">
+						<label for="dni">DNI</label> <input type="text"
+							class="form-control" id="dni" aria-describedby="dni"
+							th:field="*{dni}" placeholder="type here ..." />
+					</div>
+							
+					<div class="form-group">
+						<label for="position">Cargo</label>
+						 <select id="position"
+							class="form-control" th:field="*{position}">
+							<option th:each="position : ${positions}" 
+								th:text="${position.name}" th:value="${position.id}">
+							</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="office">Sucursal</label>
+						 <select id="office"
+							class="form-control" th:field="*{office}">
+							<option th:each="office : ${offices}"
+								th:text="${office.adress}" th:value="${office.id}"></option>
+						</select>
+					</div>
+					
+					<a th:href="@{/employees/}" class="btn btn-primary">Regresar</a>
+					<button type="submit" class="btn btn-success">Save</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<th:block th:include="fragments/scripts"></th:block>
+
+</body>
+</html>
