@@ -1,0 +1,87 @@
+<nav
+	class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg"
+	color-on-scroll="100" id="sectionsNav">
+	<div class="container">
+		<div class="navbar-translate">
+			<a class="navbar-brand" th:href="@{/deliverys}">Polleria Nortys </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="navbar-toggler-icon"></span> <span
+					class="navbar-toggler-icon"></span> <span
+					class="navbar-toggler-icon"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav ml-auto">
+			
+				
+				<li class="dropdown nav-item"><a th:href="@{/positions/new}"
+					class="nav-link"> <i
+						class="fas fa-plus"></i> New Cargo
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/offices/new}"
+					class="nav-link"> <i
+						class="fas fa-plus"></i> New Sucursal
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/employees/new}"
+					class="nav-link"> <i
+						class="fas fa-plus"></i> New Empleado
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/orders/new}"
+					class="nav-link"> <i
+						class="fas fa-plus"></i> New Platillo
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/deliverys/new}"
+					class="nav-link"> <i
+						class="fas fa-plus"></i> New Pedido
+				</a></li>
+				
+				
+				<li class="dropdown nav-item"><a th:href="@{/positions}"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Mantenimiento Cargos
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/offices}"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Mantenimiento Sucursal
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/employees}"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Mantenimiento Empleados
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/orders}"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Mantenimiento Platillos
+				</a></li>
+				
+				<li class="dropdown nav-item"><a th:href="@{/deliverys}"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Mantenimiento Pedido
+				</a></li>
+				
+				<li class="dropdown nav-item"><a
+					href="#" class="nav-link"> <i class="material-icons">apps</i>
+						Sign In
+				</a></li>
+
+
+
+
+				<li class="dropdown nav-item"><a href="#"
+					class="nav-link"> <i
+						class="material-icons">apps</i> Sign Out
+				</a></li>
+
+
+			</ul>
+		</div>
+	</div>
+</nav>
