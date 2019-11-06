@@ -41,6 +41,13 @@
 							</div>
 							
 							<div class="form-group">
+								<textarea th:field="*{codigo}" id="codigo"
+									class="form-control" rows="6"></textarea>
+								<label for="codigo">Codigo promocional</label> 
+									
+							</div>
+							
+							<div class="form-group">
 								<label for="recepcionist">Recepcionista</label>
 								<select id="recepcionist" class="form-control" th:field="*{recepcionist}">
 									<option th:each="recepcionist : ${recepcionists}"

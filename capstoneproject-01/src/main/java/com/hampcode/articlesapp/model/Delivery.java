@@ -22,6 +22,9 @@ public class Delivery {
 	@NotEmpty(message="Error al registrar")
 	@Column(name="customer")
 	private String customer;
+	
+	@Column(name = "codigor", nullable = true, length = 50)
+	private String codigo;
 
 	
 	@ManyToOne

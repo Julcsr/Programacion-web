@@ -44,7 +44,11 @@ public class DeliveryController {
 
 	@GetMapping("/{id}")
 	public String getDeliveryById(@PathVariable(value = "id") Long deliveryId, Model model) {
+		
+		
+
 		model.addAttribute("delivery", deliveryService.findById(deliveryId));
+	
 		return DELIVERY_VIEW;
 	}
 
