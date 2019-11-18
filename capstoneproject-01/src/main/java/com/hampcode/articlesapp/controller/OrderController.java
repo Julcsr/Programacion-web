@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,13 +34,13 @@ public class OrderController {
 	
 	@Autowired
 	private PageInitPaginationOrder pageInitiPagination;
-
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
 	public String getOrderById(@PathVariable(value = "id") Long orderId, Model model) {
 		model.addAttribute("order", orderService.findById(orderId));
 		return ORDER_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping
 	public ModelAndView getAllOrders(
 			@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -50,7 +52,7 @@ public class OrderController {
 						, ORDER_PAGE_VIEW);
 		return modelAndView;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/new")
 	public String newOrder(Model model) {
 
@@ -60,7 +62,7 @@ public class OrderController {
 		}
 		return ORDER_ADD_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/create")
 	public String createOrder(@Valid Order order, 
 			BindingResult result,
@@ -80,7 +82,7 @@ public class OrderController {
 
 		return "redirect:/orders/" + newOrder.getId();
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("{id}/edit")
 	public String editOrder(@PathVariable(value = "id") Long orderId, Model model) {
 		/*
@@ -92,24 +94,29 @@ public class OrderController {
 		}
 		return ORDER_EDIT_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping(path = "/{id}/update")
-	public String updateOrder(@PathVariable(value = "id") Long orderId, Order orderDetails, Model model) {
+	public String updateOrder(@PathVariable(value = "id") Long orderId, @Valid Order orderDetails, 
+			BindingResult result,
+			RedirectAttributes attr, Model model) {
 
+        if(result.hasErrors()) {
+        	
+        	attr.addFlashAttribute("org.springframework.validation.BindingResult.order",result);
+        	attr.addFlashAttribute("order",orderDetails);
+        	orderService.update(orderId, orderDetails);
+    		model.addAttribute("order", orderService.findById(orderId));
+    		return "redirect:/orders/" + orderId;
+        }
+		
 		orderService.update(orderId, orderDetails);
 		model.addAttribute("order", orderService.findById(orderId));
 		return "redirect:/orders/" + orderId;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping(value = "/{id}/delete")
 	public String deleteOrder(@PathVariable("id") Long orderId) {
-		try {
-			orderService.delete(orderId);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+		orderService.delete(orderId);
 		return "redirect:/orders";
 	}
 }

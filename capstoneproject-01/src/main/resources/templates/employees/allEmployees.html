@@ -14,17 +14,21 @@
 					<div class="col-md-8 offset-md-2 col-sm-12">
 
 						<div class="title">
-							<h2>Mantenimiento empleados</h2>
+							<h2>Empleados</h2>
 						</div>
 
 						<table class="table table-responsive highlight">
 							<thead>
 								<tr>
 									<th>Nombre</th>
+									<th>Apellido Paterno</th>
+									<th>Apellido Materno</th>
 									<th>Dni</th>
 									<th>Posicion</th>
 									<th>Sucursal</th>
 
+									<th></th>
+									<th></th>
 									<th></th>
 									<th></th>
 									<th></th>
@@ -34,6 +38,8 @@
 							<tbody>
 								<tr th:each="employee : ${employeesList}">
 									<td th:text="${employee.name}"></td>
+									<td th:text="${employee.apellidoPaterno}"></td>
+									<td th:text="${employee.apellidoMaterno}"></td>
 									<td th:text="${employee.dni}"></td>
 									<td th:text="${employee.position.name}"></td>
 									<td th:text="${employee.office.adress}"></td>

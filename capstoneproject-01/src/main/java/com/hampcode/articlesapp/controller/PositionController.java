@@ -3,6 +3,8 @@ package com.hampcode.articlesapp.controller;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,13 +34,13 @@ public class PositionController {
 	
 	@Autowired
 	private PageInitPaginationPosition pageInitiPagination;
-
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
 	public String getPositionById(@PathVariable(value = "id") Long positionId, Model model) {
 		model.addAttribute("position", positionService.findById(positionId));
 		return POSITION_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping
 	public ModelAndView getAllPositions(
 			@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -50,7 +52,7 @@ public class PositionController {
 						, POSITION_PAGE_VIEW);
 		return modelAndView;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/new")
 	public String newPosition(Model model) {
 
@@ -60,7 +62,7 @@ public class PositionController {
 		}
 		return POSITION_ADD_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/create")
 	public String createPosition(@Valid Position position, 
 			BindingResult result,
@@ -80,7 +82,7 @@ public class PositionController {
 
 		return "redirect:/positions/" + newPosition.getId();
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("{id}/edit")
 	public String editPosition(@PathVariable(value = "id") Long positionId, Model model) {
 		/*
@@ -92,23 +94,25 @@ public class PositionController {
 		}
 		return POSITION_EDIT_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping(path = "/{id}/update")
-	public String updatePosition(@PathVariable(value = "id") Long positionId, Position positionDetails, Model model) {
-
+	public String updatePosition(@PathVariable(value = "id") Long positionId,@Valid Position positionDetails,BindingResult result,
+			RedirectAttributes attr, Model model) {
+        if(result.hasErrors()) {
+        	
+        	attr.addFlashAttribute("org.springframework.validation.BindingResult.position",result);
+        	attr.addFlashAttribute("position",positionDetails);
+        	
+        	return "redirect:/positions/new";
+        }
 		positionService.update(positionId, positionDetails);
 		model.addAttribute("position", positionService.findById(positionId));
 		return "redirect:/positions/" + positionId;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping(value = "/{id}/delete")
 	public String deletePosition(@PathVariable("id") Long positionId) {
-		try {
-			positionService.delete(positionId);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+		positionService.delete(positionId);
 		return "redirect:/positions";
 	}
 }

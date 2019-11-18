@@ -1,43 +1,54 @@
 package com.hampcode.articlesapp.model;
-	
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "deliveries")
 public class Delivery {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="delivery_id")
+	@Column(name = "delivery_id")
 	private Long id;
 
-	@NotEmpty(message="Error al registrar")
-	@Column(name="customer")
-	private String customer;
-	
-	@Column(name = "codigor", nullable = true, length = 50)
-	private String codigo;
-
-	
 	@ManyToOne
-	@JoinColumn(name="id_motorized")
+	@JoinColumn(name = "id_customer")
+	private Customer customer;
+
+	@ManyToOne
+	@JoinColumn(name = "id_motorized")
 	private Employee motorized;
 
 	@ManyToOne
-	@JoinColumn(name="id_recepcionist")
+	@JoinColumn(name = "id_recepcionist")
 	private Employee recepcionist;
-	
-	@ManyToOne
-	@JoinColumn(name="id_order")
-	private Order order;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "delivery_order", joinColumns = { @JoinColumn(name = "delivery_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "order_id") })
+	private List<Order> orders = new ArrayList<>();
+
+	private double monto;
+
+	public double getMonto() {
+		return monto;
+	}
+
+	public void setMonto(double monto) {
+		this.monto = monto;
+	}
 
 	public Long getId() {
 		return id;
@@ -47,11 +58,11 @@ public class Delivery {
 		this.id = id;
 	}
 
-	public String getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(String customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
@@ -71,16 +82,12 @@ public class Delivery {
 		this.recepcionist = recepcionist;
 	}
 
-	public Order getOrder() {
-		return order;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
-	
-
-
-	
 }

@@ -38,11 +38,9 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Order update(Long id, Order entity) {
 		Order order = findById(id);
-
 		order.setName(entity.getName());
-		order.setIngredients(entity.getIngredients());
 		order.setPrice(entity.getPrice());
-
+		order.setIngredients(entity.getIngredients());
 		orderRepository.save(order);
 		return order;
 	}

@@ -14,21 +14,26 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
             <div class="row">
                 <div class="col-md-8 offset-md-2 col-sm-12">
                     <div class="title">
-                        <h2 th:text="${delivery.customer}"></h2>
+                        <h2 th:text="'Cliente:'+' '+${delivery.customer.name}+' '+${delivery.customer.apellidoPaterno}+' '+${delivery.customer.apellidoMaterno}"></h2>
                     </div>
-                    <h6 th:text="${delivery.motorized.name}">DNI</h6>
-                    <p th:text="${delivery.recepcionist.name}"></p>
-                    <p th:text="${delivery.order.name}"></p>
-                      <p th:text="${delivery.order.price}"></p>
-                    	
+					<p th:text="'Telefono del cliente:'+' '+${delivery.customer.phone}"></p>
+                    <p th:text="'Direccion de envio:'+' '+${delivery.customer.address}"></p>
+                    <p th:text="'Motorizado:'+' '+${delivery.motorized.name}+' '+${delivery.motorized.apellidoPaterno}"></p>
+                    <p th:text="'Recepcionista:'+' '+${delivery.recepcionist.name}+' '+${delivery.recepcionist.apellidoPaterno}"></p>
+                    <br>	<p th:text="'Orden:'"></p>
+                    <td><th:block th:each="order : ${delivery.orders}">
+									<span th:text="${order.name} + ', '"></span>
+								</th:block>
+					</td>
+					<p th:text="'Monto Total: '+${delivery.monto}"></p>
                 </div>
             </div>
             &nbsp;
             &nbsp;
             <div class="row">
                 <div class="col-md-8 offset-md-2 col-sm-12"  sec:authorize="isAuthenticated()">
-                    <a th:href="@{'/deliverys'}"
-                       class="btn btn-primary">Volver</a>
+                    <a th:href="@{'/deliverys/' + ${delivery.id} + '/edit'}"
+                       class="btn btn-primary">Editar</a>
                 </div>
             </div>
         </div>

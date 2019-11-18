@@ -38,12 +38,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee update(Long id, Employee entity) {
 		Employee employee = findById(id);
-
-		employee.setDni(entity.getDni());
 		employee.setName(entity.getName());
-		employee.setOffice(entity.getOffice());
+		employee.setApellidoPaterno(entity.getApellidoPaterno());
+		employee.setApellidoMaterno(entity.getApellidoMaterno());
+		employee.setDni(entity.getDni());
 		employee.setPosition(entity.getPosition());
-
+		employee.setOffice(entity.getOffice());
 		employeeRepository.save(employee);
 		return employee;
 	}

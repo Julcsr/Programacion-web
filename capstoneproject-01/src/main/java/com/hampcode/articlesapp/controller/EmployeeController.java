@@ -3,6 +3,8 @@ package com.hampcode.articlesapp.controller;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,13 +41,13 @@ public class EmployeeController {
 	
 	@Autowired
 	private PageInitPaginationEmployee pageInitiPagination;
-
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
 	public String getEmployeeById(@PathVariable(value = "id") Long employeeId, Model model) {
 		model.addAttribute("employee", employeeService.findById(employeeId));
 		return EMPLOYEE_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping
 	public ModelAndView getAllEmployees(
 			@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -57,7 +59,7 @@ public class EmployeeController {
 						, EMPLOYEE_PAGE_VIEW);
 		return modelAndView;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/new")
 	public String newEmployee(Model model) {
 
@@ -69,7 +71,7 @@ public class EmployeeController {
 		}
 		return EMPLOYEE_ADD_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/create")
 	public String createEmployee(@Valid Employee employee, 
 			BindingResult result,
@@ -89,7 +91,7 @@ public class EmployeeController {
 
 		return "redirect:/employees/" + newEmployee.getId();
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("{id}/edit")
 	public String editEmployee(@PathVariable(value = "id") Long employeeId, Model model) {
 		/*
@@ -103,24 +105,29 @@ public class EmployeeController {
 		}
 		return EMPLOYEE_EDIT_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping(path = "/{id}/update")
-	public String updateEmployee(@PathVariable(value = "id") Long employeeId, Employee employeeDetails, Model model) {
+	public String updateEmployee(@PathVariable(value = "id") Long employeeId,@Valid Employee employeeDetails, 
+			BindingResult result,
+			RedirectAttributes attr, Model model) {
 
+    if(result.hasErrors()) {
+        	
+        	attr.addFlashAttribute("org.springframework.validation.BindingResult.employee",result);
+        	attr.addFlashAttribute("employee",employeeDetails);
+        	employeeService.update(employeeId, employeeDetails);
+    		model.addAttribute("employee", employeeService.findById(employeeId));
+    		return "redirect:/employees/" + employeeId;
+        }
+		
 		employeeService.update(employeeId, employeeDetails);
 		model.addAttribute("employee", employeeService.findById(employeeId));
 		return "redirect:/employees/" + employeeId;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping(value = "/{id}/delete")
 	public String deleteEmployee(@PathVariable("id") Long employeeId) {
-		try {
-			employeeService.delete(employeeId);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
+		employeeService.delete(employeeId);
 		return "redirect:/employees";
 	}
 }

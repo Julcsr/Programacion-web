@@ -3,6 +3,8 @@ package com.hampcode.articlesapp.controller;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,13 +33,13 @@ public class OfficeController {
 	
 	@Autowired
 	private PageInitPaginationOffice pageInitiPagination;
-
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/{id}")
 	public String getOfficeById(@PathVariable(value = "id") Long officeId, Model model) {
 		model.addAttribute("office", officeService.findById(officeId));
 		return OFFICE_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping
 	public ModelAndView getAllOffices(
 			@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -49,7 +51,7 @@ public class OfficeController {
 						, OFFICE_PAGE_VIEW);
 		return modelAndView;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/new")
 	public String newOffice(Model model) {
 
@@ -59,7 +61,7 @@ public class OfficeController {
 		}
 		return OFFICE_ADD_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping("/create")
 	public String createOffice(@Valid Office office, 
 			BindingResult result,
@@ -79,35 +81,37 @@ public class OfficeController {
 
 		return "redirect:/offices/" + newOffice.getId();
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("{id}/edit")
-	public String editOffice(@PathVariable(value = "id") Long officeId, Model model) {
-		/*
-		 * in case of redirection from '/office/{id}/update' model will contain office
-		 * with field values
-		 */
+	public String editOffice(@PathVariable(value = "id") Long officeId,Model model) {
+		
 		if (!model.containsAttribute("office")) {
 			model.addAttribute("office", officeService.findById(officeId));
 		}
 		return OFFICE_EDIT_FORM_VIEW;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@PostMapping(path = "/{id}/update")
-	public String updateOffice(@PathVariable(value = "id") Long officeId, Office officeDetails, Model model) {
+	public String updateOffice(@PathVariable(value = "id") Long officeId, @Valid Office officeDetails,BindingResult result,
+			RedirectAttributes attr,  Model model) {
 
+		  if(result.hasErrors()) {
+	        	
+	        	attr.addFlashAttribute("org.springframework.validation.BindingResult.office",result);
+	        	attr.addFlashAttribute("office",officeDetails);
+	        	officeService.update(officeId, officeDetails);
+	    		model.addAttribute("office", officeService.findById(officeId));
+	        	return "redirect:/offices/" + officeId;
+	        }
+		
 		officeService.update(officeId, officeDetails);
 		model.addAttribute("office", officeService.findById(officeId));
 		return "redirect:/offices/" + officeId;
 	}
-
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping(value = "/{id}/delete")
 	public String deleteOffice(@PathVariable("id") Long officeId) {
-		try {
-			officeService.delete(officeId);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	
+		officeService.delete(officeId);
 		return "redirect:/offices";
 	}
 }

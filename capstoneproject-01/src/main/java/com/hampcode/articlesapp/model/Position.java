@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Type;
 
@@ -18,11 +17,9 @@ public class Position {
 	@Column(name="position_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message="Error al registrar")
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
 	
-	@NotEmpty(message="Error al registrar")
 	@Lob
 	@Type(type = "org.hibernate.type.TextType")
 	private String description;

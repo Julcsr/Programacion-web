@@ -14,15 +14,15 @@
 					<div class="col-md-8 offset-md-2 col-sm-12">
 
 						<div class="title">
-							<h2>Mantenimiento Pedido</h2>
+							<h2>Deliveries</h2>
 						</div>
 
 						<table class="table table-responsive highlight">
 							<thead>
 								<tr>
 									<th>Cliente</th>
-									<th>Empleado</th>
-									<th>Empleado2</th>
+									<th>Motorizado</th>
+									<th>Recepcionista de Llamadas</th>
 									<th>Orden</th>
 
 									<th></th>
@@ -33,10 +33,14 @@
 							</thead>
 							<tbody>
 								<tr th:each="delivery : ${deliverysList}">
-									<td th:text="${delivery.customer}"></td>
+									<td th:text="${delivery.customer.name}"></td>
 									<td th:text="${delivery.recepcionist.name}"></td>
 									<td th:text="${delivery.motorized.name}"></td>
-									<td th:text="${delivery.order.name}"></td>
+									<td><th:block th:each="order : ${delivery.orders}">
+									<span th:text="${order.name} + ' '">Item description
+										here...</span>
+								</th:block>
+							</td>
 
 									<td><a
 										th:href="@{/deliverys/{id}(id=${delivery.id})}"><i

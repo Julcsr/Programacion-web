@@ -14,17 +14,16 @@ public class Office {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	//@NotEmpty(message="Error al registrar")
+    @NotEmpty(message="Please enter a name")
 	@Column(name = "phone_number", nullable = false, length = 9)
-	//@NotEmpty(message="Error al registrar")
 	private int phoneNumber;
-	@NotEmpty(message="Error al registrar")
+    @NotEmpty(message="Please enter a name")
 	@Column(name = "adress", nullable = false, length = 50)
 	private String adress;
-	@NotEmpty(message="Error al registrar")
+    @NotEmpty(message="Please enter a name")
 	@Column(name = "email", nullable =true, length = 50)
 	private String email;
-	@NotEmpty(message="Error al registrar")
+    @NotEmpty(message="Please enter a name")
 	@Column(name = "boss", nullable = true, length = 50)
 	private String boss;
 	public Long getId() {

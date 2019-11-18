@@ -10,12 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hampcode.articlesapp.model.Delivery;
 import com.hampcode.articlesapp.service.DeliveryService;
 
+
 @Component
 public class PageInitPaginationDelivery {
 
 	@Autowired
 	private DeliveryService deliveryService;
 
+	
 	private static final int BUTTONS_TO_SHOW = 3;
 	private static final int INITIAL_PAGE = 0;
 	private static final int INITIAL_PAGE_SIZE = 5;
@@ -32,6 +34,7 @@ public class PageInitPaginationDelivery {
 		PagerModel pager = new PagerModel(deliverysList.getTotalPages(), deliverysList.getNumber(), BUTTONS_TO_SHOW);
 
 		initModelView.addObject("deliverysList", deliverysList);
+		//initModelView.addObject("orders", orderService.getAll());
 		initModelView.addObject("selectedPageSize", evalPageSize);
 		initModelView.addObject("pageSizes", PAGE_SIZES);
 		initModelView.addObject("pager", pager);

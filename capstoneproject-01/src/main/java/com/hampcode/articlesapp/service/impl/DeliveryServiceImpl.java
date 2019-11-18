@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.hampcode.articlesapp.exception.ResourceNotFoundException;
 import com.hampcode.articlesapp.model.Delivery;
+import com.hampcode.articlesapp.model.Order;
 import com.hampcode.articlesapp.repository.DeliveryRepository;
 import com.hampcode.articlesapp.service.DeliveryService;
 
@@ -31,6 +32,11 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public Delivery create(Delivery entity) {
 		Delivery newDelivery;
+		double price=0;
+		for(Order o:entity.getOrders()){
+			price+=o.getPrice();
+		}
+		entity.setMonto(price);
 		newDelivery = deliveryRepository.save(entity);
 		return newDelivery;
 	}
@@ -38,6 +44,15 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public Delivery update(Long id, Delivery entity) {
 		Delivery delivery = findById(id);
+		delivery.setCustomer(entity.getCustomer());
+		delivery.setMotorized(entity.getMotorized());
+		delivery.setRecepcionist(entity.getRecepcionist());
+		delivery.setOrders(entity.getOrders());
+		double price=0;
+		for(Order o:entity.getOrders()){
+			price+=o.getPrice();
+		}
+		delivery.setMonto(price);
 		deliveryRepository.save(delivery);
 		return delivery;
 	}

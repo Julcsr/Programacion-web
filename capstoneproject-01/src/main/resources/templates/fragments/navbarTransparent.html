@@ -3,7 +3,7 @@
 	color-on-scroll="100" id="sectionsNav">
 	<div class="container">
 		<div class="navbar-translate">
-			<a class="navbar-brand" th:href="@{/deliverys}">Polleria Nortys </a>
+			<a class="navbar-brand" th:href="@{/home}"> Go Chicken Go </a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="sr-only">Toggle navigation</span> <span
@@ -14,69 +14,77 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
-			
 				
 				<li class="dropdown nav-item"><a th:href="@{/positions/new}"
-					class="nav-link"> <i
-						class="fas fa-plus"></i> New Cargo
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar Cargo
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/offices/new}"
-					class="nav-link"> <i
-						class="fas fa-plus"></i> New Sucursal
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar Oficina
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/employees/new}"
-					class="nav-link"> <i
-						class="fas fa-plus"></i> New Empleado
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar Empleado
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/orders/new}"
-					class="nav-link"> <i
-						class="fas fa-plus"></i> New Platillo
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar platillo
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/deliverys/new}"
-					class="nav-link"> <i
-						class="fas fa-plus"></i> New Pedido
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar Delivery
 				</a></li>
 				
+				<li class="dropdown nav-item"><a th:href="@{/customers/new}"
+				class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="fas fa-plus"></i> Registrar Cliente
+				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/positions}"
-					class="nav-link"> <i
-						class="material-icons">apps</i> Mantenimiento Cargos
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Cargos
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/offices}"
-					class="nav-link"> <i
-						class="material-icons">apps</i> Mantenimiento Sucursal
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Oficinas
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/employees}"
-					class="nav-link"> <i
-						class="material-icons">apps</i> Mantenimiento Empleados
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Empleados
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/orders}"
-					class="nav-link"> <i
-						class="material-icons">apps</i> Mantenimiento Platillos
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Platillos
 				</a></li>
 				
 				<li class="dropdown nav-item"><a th:href="@{/deliverys}"
-					class="nav-link"> <i
-						class="material-icons">apps</i> Mantenimiento Pedido
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Deliveries
 				</a></li>
 				
-				<li class="dropdown nav-item"><a
-					href="#" class="nav-link"> <i class="material-icons">apps</i>
+				<li class="dropdown nav-item"><a th:href="@{/customers}"
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
+						class="material-icons">apps</i> Clientes
+				</a></li>
+				
+				<li class="dropdown nav-item" sec:authorize="!isAuthenticated()"><a
+					th:href="@{/login}" class="nav-link"> <i class="material-icons">apps</i>
 						Sign In
 				</a></li>
 
 
 
-
-				<li class="dropdown nav-item"><a href="#"
-					class="nav-link"> <i
+	
+				<li class="dropdown nav-item"><a th:href="@{/logout}"
+					class="nav-link" sec:authorize="isAuthenticated()"> <i
 						class="material-icons">apps</i> Sign Out
 				</a></li>
 
